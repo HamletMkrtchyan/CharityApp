@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,11 @@ public class DonationController {
     }
 
 
-
+    @PostMapping("/form-confirmation")
+    public String formConfirmationPage(@ModelAttribute Donation donation) {
+        donationService.saveDonation(donation);
+        return "form-confirmation";
+    }
 
 
 }
