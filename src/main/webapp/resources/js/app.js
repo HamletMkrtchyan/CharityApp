@@ -171,4 +171,38 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+
+
+  function updateSummary() {
+    // Get form values
+    let quantity = document.querySelector('input[name="quantity"]').value;
+    let categories = Array.from(document.querySelectorAll('input[name="categories"]:checked')).map(input => input.nextElementSibling.textContent).join(', ');
+    let institution = document.querySelector('input[name="institution"]:checked').nextElementSibling.querySelector('.title').textContent;
+    let city = document.querySelector('input[name="city"]').value;
+    let street = document.querySelector('input[name="street"]').value;
+    let zipCode = document.querySelector('input[name="zipCode"]').value;
+    let pickUpDate = document.querySelector('input[name="pickUpDate"]').value;
+    let pickUpTime = document.querySelector('input[name="pickUpTime"]').value;
+    let pickUpComment = document.querySelector('input[name="pickUpComment"]').value;
+
+    // Update summary text
+    document.querySelector('#summary-quantity-categories').textContent = `${quantity} worki(ów) ${categories}`;
+    document.querySelector('#summary-institution-city').textContent = `Dla fundacji "${institution}" w ${city}`;
+    document.querySelector('#summary-address').innerHTML = `<li>${street}</li><li>${city}</li><li>${zipCode}</li>`;
+    document.querySelector('#summary-date-time-comment').innerHTML = `<li>${pickUpDate}</li><li>${pickUpTime}</li><li>${pickUpComment}</li>`;
+  }
+
+  document.querySelectorAll('.next-step').forEach(button => {
+    button.addEventListener('click', function() {
+      if (this.closest('div[data-step]').dataset.step == '4') {
+        updateSummary();
+      }
+    });
+  });
+
 });
+
+
+
+
+
