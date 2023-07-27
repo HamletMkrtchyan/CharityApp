@@ -167,17 +167,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
   }
-  const form = document.querySelector(".form--steps");
-  if (form !== null) {
-    new FormSteps(form);
-  }
-
 
   function updateSummary() {
     // Get form values
     let quantity = document.querySelector('input[name="quantity"]').value;
     let categories = Array.from(document.querySelectorAll('input[name="categories"]:checked')).map(input => input.nextElementSibling.textContent).join(', ');
-    let institution = document.querySelector('input[name="institution"]:checked').nextElementSibling.querySelector('.title').textContent;
+    let institutionElement = document.querySelector('input[name="institution"]:checked');
+    let institution = institutionElement ? institutionElement.nextElementSibling.textContent : 'brak instytucji';
     let city = document.querySelector('input[name="city"]').value;
     let street = document.querySelector('input[name="street"]').value;
     let zipCode = document.querySelector('input[name="zipCode"]').value;
@@ -191,6 +187,14 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#summary-address').innerHTML = `<li>${street}</li><li>${city}</li><li>${zipCode}</li>`;
     document.querySelector('#summary-date-time-comment').innerHTML = `<li>${pickUpDate}</li><li>${pickUpTime}</li><li>${pickUpComment}</li>`;
   }
+
+  const form = document.querySelector(".form--steps");
+  if (form !== null) {
+    new FormSteps(form);
+  }
+
+
+
 
   document.querySelectorAll('.next-step').forEach(button => {
     button.addEventListener('click', function() {
