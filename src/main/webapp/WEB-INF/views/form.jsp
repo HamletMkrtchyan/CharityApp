@@ -88,49 +88,64 @@
         <form:form modelAttribute="donation" action="/form-confirmation" method="post">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
+                    <%--                <div class="form-group form-group--checkbox">--%>
                 <h3>Zaznacz co chcesz oddać:</h3>
                 <form:checkboxes path="categories" items="${categories}" itemLabel="name" itemValue="id"/>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn next-step">Dalej</button>
                 </div>
+                    <%--                </div>--%>
+
             </div>
 
             <!-- STEP 2 -->
             <div data-step="2">
                 <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
-                <form:input path="quantity" type="number" step="1" min="1"/>
+                <div class="form-group form-group--inline">
+                    <form:input path="quantity" type="number" step="1" min="1"/>
 
-                <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                    <div class="form-group form-group--buttons">
+                        <button type="button" class="btn prev-step">Wstecz</button>
+                        <button type="button" class="btn next-step">Dalej</button>
+                    </div>
                 </div>
             </div>
 
             <!-- STEP 3 -->
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                    <%--                <div class="form-group form-group--checkbox">--%>
                 <form:radiobuttons path="institution" items="${institutions}" itemLabel="name" itemValue="id"/>
-
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="button" class="btn next-step">Dalej</button>
                 </div>
+                    <%--                </div>--%>
+
             </div>
 
             <!-- STEP 4 -->
             <div data-step="4">
                 <h3>Podaj adres oraz termin odbioru rzeczy przez kuriera</h3>
-                <form:input path="street" type="text"/>
-                <form:input path="city" type="text"/>
-                <form:input path="zipCode" type="text"/>
-                <form:input path="pickUpDate" type="date"/>
-                <form:input path="pickUpTime" type="time"/>
-                <form:input path="pickUpComment" type="text"/>
+                <div class="form-section form-section--columns">
+                    <div class="form-section--column">
 
-                <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                        <form:input path="street" type="text"/>
+                        <form:input path="city" type="text"/>
+                        <form:input path="zipCode" type="text"/>
+                    </div>
+                    <div class="form-section--column">
+
+                        <form:input path="pickUpDate" type="date"/>
+                        <form:input path="pickUpTime" type="time"/>
+                        <form:input path="pickUpComment" type="text"/>
+                    </div>
+
+                    <div class="form-group form-group--buttons">
+                        <button type="button" class="btn prev-step">Wstecz</button>
+                        <button type="button" class="btn next-step">Dalej</button>
+                    </div>
                 </div>
             </div>
 

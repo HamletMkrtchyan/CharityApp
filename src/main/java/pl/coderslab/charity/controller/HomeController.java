@@ -40,10 +40,7 @@ public class HomeController {
     public String goToLoginPage(Model model){
         return "login";
     }
-    @GetMapping("goToRegisterPage")
-    public String goToRegisterPage(Model model){
-        return "register";
-    }
+
 
     @GetMapping("/giveDonationForm")
     public String showCategory(Model model) {

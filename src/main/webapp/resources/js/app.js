@@ -170,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateSummary() {
-        // Get form values
         let quantity = document.querySelector('input[name="quantity"]').value;
         let categories = Array.from(document.querySelectorAll('input[name="categories"]:checked')).map(input => input.nextElementSibling.textContent).join(', ');
         let institutionElement = document.querySelector('input[name="institution"]:checked');
@@ -182,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let pickUpTime = document.querySelector('input[name="pickUpTime"]').value;
         let pickUpComment = document.querySelector('input[name="pickUpComment"]').value;
 
-        // Update summary text
         document.querySelector('#summary-quantity-categories').textContent = `${quantity} worki(ów) ${categories}`;
         document.querySelector('#summary-institution-city').textContent = `Dla fundacji "${institution}" w ${city}`;
         document.querySelector('#summary-address').innerHTML = `<li>${street}</li><li>${city}</li><li>${zipCode}</li>`;

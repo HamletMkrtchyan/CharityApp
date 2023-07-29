@@ -28,7 +28,7 @@ public class DonationService {
         int sum = 0;
         List<Donation> donations = donationRepository.findAll();
         for(Donation donation : donations) {
-            sum += donation.getQuantity();
+            sum = sum + donation.getQuantity();
         }
         return sum;
     }
