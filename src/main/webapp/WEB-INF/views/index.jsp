@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/static/css/style.css'/>"/>
 </head>
 <body>
 <header class="header--main-page">
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="/goToLoginPage" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a href="/goToRegisterPage" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            <li><a href="/loginForm" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            <li><a href="/registerForm" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
 
         <ul>
@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <a href="/goToRegisterPage" class="btn btn--large">Załóż konto</a>
+    <a href="/registerForm" class="btn btn--large">Załóż konto</a>
 </section>
 
 <section id="about-us" class="about-us">

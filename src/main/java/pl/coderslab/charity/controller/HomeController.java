@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
+import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
 
@@ -25,7 +26,7 @@ public class HomeController {
 
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String homeAction(Model model){
         List<Institution> institutions = institutionService.getAllInstitutions();
         int totalBags = donationService.sumOfAllDonatedBags();
@@ -34,11 +35,6 @@ public class HomeController {
         model.addAttribute("totalBags", totalBags);
         model.addAttribute("totalDonations", totalDonations);
         return "index";
-    }
-
-    @GetMapping("/goToLoginPage")
-    public String goToLoginPage(Model model){
-        return "login";
     }
 
 
@@ -51,5 +47,12 @@ public class HomeController {
         model.addAttribute("categories", categories);
         model.addAttribute("institutions", institutions);
         return "form";
+    }
+
+
+
+    @GetMapping("/userPage")
+    public String showUserPage() {
+        return "userPage";
     }
 }

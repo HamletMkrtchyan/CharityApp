@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: hamlet
@@ -14,14 +16,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Document</title>
-  <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
+  <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
 <header>
   <nav class="container container--70">
     <ul class="nav--actions">
-      <li><a href="/goToLoginPage">Zaloguj</a></li>
-      <li class="highlighted"><a href="/goToRegisterPage">Załóż konto</a></li>
+      <li><a href="/loginForm">Zaloguj</a></li>
+      <li class="highlighted"><a href="/registerForm">Załóż konto</a></li>
     </ul>
 
     <ul>
@@ -36,20 +38,22 @@
 
 <section class="login-page">
   <h2>Zaloguj się</h2>
-  <form>
+
+  <form:form action="/loginForm" method="post" modelAttribute="user">
     <div class="form-group">
-      <input type="email" name="email" placeholder="Email" />
+      <form:input type="email" path="username" placeholder="Email"/>
     </div>
     <div class="form-group">
-      <input type="password" name="password" placeholder="Hasło" />
+      <form:password path="password" placeholder="Hasło"/>
       <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
     </div>
 
     <div class="form-group form-group--buttons">
-      <a href="/goToRegisterPage" class="btn btn--without-border">Załóż konto</a>
+      <a href="/registerForm" class="btn btn--without-border">Załóż konto</a>
       <button class="btn" type="submit">Zaloguj się</button>
     </div>
-  </form>
+  </form:form>
+
 </section>
 
 <footer>
@@ -79,6 +83,8 @@
     </div>
   </div>
 </footer>
+<script src="<c:url value="resources/js/app.js"/>"></script>
+
 </body>
 </html>
 
