@@ -14,9 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public SecurityConfig(UserService userService) {
+    public SecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -24,8 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(passwordEncoder);
         return auth;
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,16 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/registerForm", "/giveDonationForm", "/loginForm", "/resources/**").permitAll()
+        http.authorizeRequests().antMatchers("/registerForm", "/login", "/resources/**").permitAll()
                 .antMatchers("/giveDonationForm", "/userPage").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/loginForm").defaultSuccessUrl("/userPage", true).permitAll()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/userPage", true)
                 .and()
-                .logout().logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .permitAll()
+                .logout().logoutSuccessUrl("/").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");
 
 

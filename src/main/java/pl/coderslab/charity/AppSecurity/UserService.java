@@ -5,4 +5,5 @@ import pl.coderslab.charity.dto.UserRegistrationDto;
 import pl.coderslab.charity.entity.User;
 public interface UserService extends UserDetailsService {
    User save(UserRegistrationDto userRegistrationDto);
+
 }

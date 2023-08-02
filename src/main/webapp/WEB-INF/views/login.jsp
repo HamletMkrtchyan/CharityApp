@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Document</title>
-  <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+  <link rel="stylesheet" href="<c:url value='/resources/static/css/style.css'/>"/>
 </head>
 <body>
 <header>
@@ -39,12 +39,15 @@
 <section class="login-page">
   <h2>Zaloguj się</h2>
 
-  <form:form action="/loginForm" method="post" modelAttribute="user">
+  <p>${message}</p>
+
+
+  <form action="/login" method="post">
     <div class="form-group">
-      <form:input type="email" path="username" placeholder="Email"/>
+      <input type="text" name="username" placeholder="Email"/>
     </div>
     <div class="form-group">
-      <form:password path="password" placeholder="Hasło"/>
+      <input type="password" name="password" placeholder="Hasło"/>
       <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
     </div>
 
@@ -52,7 +55,9 @@
       <a href="/registerForm" class="btn btn--without-border">Załóż konto</a>
       <button class="btn" type="submit">Zaloguj się</button>
     </div>
-  </form:form>
+  </form>
+
+
 
 </section>
 

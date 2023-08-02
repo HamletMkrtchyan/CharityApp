@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/static/css/style.css'/>"/>
 </head>
 <body>
 <header>
@@ -42,12 +42,18 @@
     <form:form action="/registerForm" method="post" modelAttribute="user">
         <div class="form-group">
             <form:input type="email" path="email" placeholder="Email"/>
+            <c:if test="${emailError ne null}">
+                <p style="color: red;">${emailError}</p>
+            </c:if>
         </div>
         <div class="form-group">
             <form:password path="password" placeholder="Hasło"/>
         </div>
         <div class="form-group">
             <form:password path="password2" placeholder="Powtórz hasło"/>
+            <c:if test="${passwordError ne null}">
+                <p style="color: red;">${passwordError}</p>
+            </c:if>
         </div>
 
         <div class="form-group form-group--buttons">

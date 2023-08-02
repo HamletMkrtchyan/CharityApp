@@ -17,10 +17,8 @@ public class LoginController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/loginForm")
+    @GetMapping("/login")
     public String showLoginForm(Model model){
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
         return "login";
     }
 }

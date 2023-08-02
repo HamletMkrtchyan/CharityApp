@@ -24,15 +24,8 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
-        super();
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
-    public User save(UserRegistrationDto userRegistrationDto) {
-        User user = new User(userRegistrationDto.getEmail(), passwordEncoder.encode(userRegistrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
-        return userRepository.save(user);
     }
 
 
@@ -46,6 +39,14 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 
     }
+
+    @Override
+    public User save(UserRegistrationDto userRegistrationDto) {
+        User user = new User(userRegistrationDto.getEmail(), passwordEncoder.encode(userRegistrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
+        return userRepository.save(user);
+    }
+
+
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
