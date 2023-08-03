@@ -22,16 +22,16 @@ public class UserRegistrationController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/registerForm")
+    @GetMapping("/register")
     public String showRegisterForm(Model model){
         model.addAttribute("user", new UserRegistrationDto());
         return "register";
     }
 
-    @PostMapping("/registerForm")
+    @PostMapping("/register")
     public String registerForm(@Valid @ModelAttribute("user") UserRegistrationDto userRegistrationDto, @RequestParam("password2") String password2, Model model) {
         if (!userRegistrationDto.getPassword().equals(password2)){
-            model.addAttribute("passwordError", "Napisz prawidłowe hasło");
+            model.addAttribute("passwordError", "Podaj prawidłowe hasło");
             return "register";
         }
         if (userRepository.existsByEmail(userRegistrationDto.getEmail())){
@@ -41,6 +41,6 @@ public class UserRegistrationController {
         userService.save(userRegistrationDto);
         model.addAttribute("message", "Gratulacje zostałaś rejestrowany, proszę sie zalogować");
         model.addAttribute("actualUser", userRegistrationDto.getEmail());
-        return "redirect:/login";
+        return "login";
     }
 }

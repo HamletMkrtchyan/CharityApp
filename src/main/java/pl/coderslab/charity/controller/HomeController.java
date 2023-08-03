@@ -34,7 +34,7 @@ public class HomeController {
         model.addAttribute("institutions", institutions);
         model.addAttribute("totalBags", totalBags);
         model.addAttribute("totalDonations", totalDonations);
-        return "index";
+        return "home";
     }
 
 

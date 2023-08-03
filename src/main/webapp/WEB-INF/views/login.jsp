@@ -22,8 +22,8 @@
 <header>
   <nav class="container container--70">
     <ul class="nav--actions">
-      <li><a href="/loginForm">Zaloguj</a></li>
-      <li class="highlighted"><a href="/registerForm">Załóż konto</a></li>
+      <li><a href="/login">Zaloguj</a></li>
+      <li class="highlighted"><a href="/register">Załóż konto</a></li>
     </ul>
 
     <ul>
@@ -41,10 +41,9 @@
 
   <p>${message}</p>
 
-
   <form action="/login" method="post">
     <div class="form-group">
-      <input type="text" name="username" placeholder="Email"/>
+      <input type="text" name="email" placeholder="Email"/>
     </div>
     <div class="form-group">
       <input type="password" name="password" placeholder="Hasło"/>

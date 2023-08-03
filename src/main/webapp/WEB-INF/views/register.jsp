@@ -39,7 +39,7 @@
 <section class="login-page">
     <h2>Załóż konto</h2>
 
-    <form:form action="/registerForm" method="post" modelAttribute="user">
+    <form:form action="/register" method="post" modelAttribute="user">
         <div class="form-group">
             <form:input type="email" path="email" placeholder="Email"/>
             <c:if test="${emailError ne null}">
@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <a href="/loginForm" class="btn btn--without-border">Zaloguj się</a>
+            <a href="/login" class="btn btn--without-border">Zaloguj się</a>
             <button class="btn" type="submit">Załóż konto</button>
         </div>
     </form:form>
