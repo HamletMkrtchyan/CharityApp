@@ -57,10 +57,9 @@ public class HomeController {
     }
 
 
-    @GetMapping("/userPage")
-    public String showUserPage(Model model) {
-        return "userPage";
-    }
+
+
+
 
 
 }

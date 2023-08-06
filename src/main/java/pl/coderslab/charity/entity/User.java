@@ -14,6 +14,9 @@ public class User {
     private String email;
 
     private String password;
+    @Transient
+    private String password2;
+
 
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,6 +34,13 @@ public class User {
 
     }
 
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
 
     public Collection<Role> getRoles() {
         return roles;

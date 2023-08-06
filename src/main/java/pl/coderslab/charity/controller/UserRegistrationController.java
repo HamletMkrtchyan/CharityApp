@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.AppSecurity.UserService;
-import pl.coderslab.charity.dto.UserRegistrationDto;
+import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 
 import javax.validation.Valid;
@@ -24,21 +24,21 @@ public class UserRegistrationController {
 
     @GetMapping("/register")
     public String showRegisterForm(Model model){
-        model.addAttribute("user", new UserRegistrationDto());
+        model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerForm(@Valid @ModelAttribute("user") UserRegistrationDto userRegistrationDto, @RequestParam("password2") String password2, Model model) {
-        if (!userRegistrationDto.getPassword().equals(password2)){
+    public String registerForm(@Valid @ModelAttribute("user") User user, Model model) {
+        if (!user.getPassword().equals(user.getPassword2())){
             model.addAttribute("passwordError", "Podaj prawidłowe hasło");
             return "register";
         }
-        if (userRepository.existsByEmail(userRegistrationDto.getEmail())){
+        if (userRepository.existsByEmail(user.getEmail())){
             model.addAttribute("emailError", "Email jest już używany. Proszę podać inny.");
             return "register";
         }
-        userService.save(userRegistrationDto);
+        userService.save(user);
         model.addAttribute("message", "Gratulacje zostałaś rejestrowany, proszę sie zalogować");
         return "login";
     }
