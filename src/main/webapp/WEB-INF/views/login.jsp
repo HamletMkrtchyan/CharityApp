@@ -42,8 +42,9 @@
   <p>${message}</p>
 
   <form action="/login" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <div class="form-group">
-      <input type="text" name="email" placeholder="Email"/>
+      <input type="email" name="email" placeholder="Email"/>
     </div>
     <div class="form-group">
       <input type="password" name="password" placeholder="Hasło"/>
@@ -51,7 +52,7 @@
     </div>
 
     <div class="form-group form-group--buttons">
-      <a href="/registerForm" class="btn btn--without-border">Załóż konto</a>
+      <a href="/register" class="btn btn--without-border">Załóż konto</a>
       <button class="btn" type="submit">Zaloguj się</button>
     </div>
   </form>
@@ -66,7 +67,7 @@
     <h3>Formularz kontaktowy</h3>
     <form>
       <div class="form-group form-group--50">
-        <input type="text" name="name" placeholder="Imię" />
+        <input type="text" name="email" placeholder="Imię" />
       </div>
       <div class="form-group form-group--50">
         <input type="text" name="surname" placeholder="Nazwisko" />

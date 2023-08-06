@@ -40,7 +40,6 @@ public class UserRegistrationController {
         }
         userService.save(userRegistrationDto);
         model.addAttribute("message", "Gratulacje zostałaś rejestrowany, proszę sie zalogować");
-        model.addAttribute("actualUser", userRegistrationDto.getEmail());
         return "login";
     }
 }

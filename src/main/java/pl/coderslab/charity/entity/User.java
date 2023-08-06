@@ -13,7 +13,6 @@ public class User {
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
-    @Column(nullable = false, length = 64)
     private String password;
 
 
@@ -28,10 +27,10 @@ public class User {
         this.roles = roles;
     }
 
-
     public User() {
 
     }
+
 
     public Collection<Role> getRoles() {
         return roles;
