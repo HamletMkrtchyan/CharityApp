@@ -41,6 +41,12 @@
 
   <p>${message}</p>
 
+  <c:if test="${param.error != null}">
+    <div class="error">Nieprawidłowy email lub hasło</div>
+  </c:if>
+
+
+
   <form action="/login" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <div class="form-group">

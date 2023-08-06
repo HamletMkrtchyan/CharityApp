@@ -19,6 +19,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginForm(Model model){
+        model.addAttribute("userMassage", "Nieprawidłowy email lub hasło");
         return "login";
     }
 }
