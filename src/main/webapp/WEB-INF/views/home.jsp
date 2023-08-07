@@ -100,7 +100,10 @@
         </div>
     </div>
 
+<sec:authorize access="isAnonymous()">
     <a href="/register" class="btn btn--large">Załóż konto</a>
+</sec:authorize>
+
 </section>
 
 <section id="about-us" class="about-us">

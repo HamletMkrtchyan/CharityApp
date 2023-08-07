@@ -48,6 +48,9 @@
         </div>
         <div class="form-group">
             <form:password path="password" placeholder="Hasło"/>
+            <c:if test="${lengthError ne null}">
+                <p style="color: red;">${lengthError}</p>
+            </c:if>
         </div>
         <div class="form-group">
             <form:password path="password2" placeholder="Powtórz hasło"/>

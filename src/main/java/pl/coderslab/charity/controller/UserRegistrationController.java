@@ -2,6 +2,7 @@ package pl.coderslab.charity.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,9 @@ public class UserRegistrationController {
 
     @PostMapping("/register")
     public String registerForm(@Valid @ModelAttribute("user") User user, Model model) {
+        if (user.getPassword().length() < 8){
+            model.addAttribute("lengthError", "Hasło musi mieć przynajmniej 8 znaków");
+        }
         if (!user.getPassword().equals(user.getPassword2())){
             model.addAttribute("passwordError", "Podaj prawidłowe hasło");
             return "register";
@@ -38,7 +42,7 @@ public class UserRegistrationController {
             model.addAttribute("emailError", "Email jest już używany. Proszę podać inny.");
             return "register";
         }
-        userService.save(user);
+        userService.save(user, "ROLE_USER");
         model.addAttribute("message", "Gratulacje zostałaś rejestrowany, proszę sie zalogować");
         return "login";
     }

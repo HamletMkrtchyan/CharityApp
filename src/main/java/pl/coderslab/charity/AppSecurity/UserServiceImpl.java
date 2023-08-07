@@ -34,11 +34,13 @@ public class UserServiceImpl implements UserService {
         return new CustomUserDetails(user);
     }
 
+
     @Override
-    public User save(User user) {
-        user = new User(user.getEmail(), passwordEncoder.encode(user.getPassword()), Arrays.asList(new Role("ROLE_USER")));
+    public User save(User user, String role) {
+       user = new User(user.getEmail(), passwordEncoder.encode(user.getPassword()), Arrays.asList(new Role(role)));
+
         return userRepository.save(user);
+
+
     }
-
-
 }

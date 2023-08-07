@@ -1,5 +1,7 @@
 package pl.coderslab.charity.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -12,7 +14,6 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true, length = 45)
     private String email;
-
     private String password;
     @Transient
     private String password2;
