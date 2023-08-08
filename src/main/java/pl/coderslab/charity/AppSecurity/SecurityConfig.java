@@ -18,9 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public SecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+    private final CustomAuthenticationSuccessHandler successHandler;
+
+    public SecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder, CustomAuthenticationSuccessHandler successHandler) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.successHandler = successHandler;
     }
 
 
@@ -49,14 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/register", "/").permitAll()
                 .antMatchers("/giveDonationForm").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/homeAdmin/**").hasRole("ADMIN")
                 .antMatchers("/favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/", true)
+                .successHandler(successHandler)
                 .permitAll()
                 .and()
                 .logout()
