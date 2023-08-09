@@ -48,7 +48,6 @@
 
 
   <form action="/login" method="post">
-    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <div class="form-group">
       <input type="email" name="email" placeholder="Email"/>
     </div>

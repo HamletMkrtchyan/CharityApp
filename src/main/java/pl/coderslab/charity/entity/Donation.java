@@ -19,6 +19,8 @@ public class Donation {
 
     @ManyToOne
     private Institution institution;
+    @ManyToOne
+    private User user;
 
     private String street;
 

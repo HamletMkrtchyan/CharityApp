@@ -11,12 +11,6 @@ import java.util.List;
 @Controller
 public class LoginController {
 
-    private final UserRepository userRepository;
-
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @GetMapping("/login")
     public String showLoginForm(Model model){
         model.addAttribute("userMassage", "Nieprawidłowy email lub hasło");
