@@ -45,6 +45,13 @@
     <div class="error">Nieprawidłowy email lub hasło</div>
   </c:if>
 
+  <c:if test="${not empty infoMsg}">
+    <div class="alert alert-info">
+        ${infoMsg}
+    </div>
+  </c:if>
+
+
 
 
   <form action="/login" method="post">

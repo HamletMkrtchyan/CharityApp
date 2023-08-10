@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login", "/register", "/").permitAll()
-                .antMatchers("/giveDonationForm").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/giveDonationForm", "/profile").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/homeAdmin/**").hasRole("ADMIN")
                 .antMatchers("/favicon.ico").permitAll()
                 .anyRequest().authenticated()

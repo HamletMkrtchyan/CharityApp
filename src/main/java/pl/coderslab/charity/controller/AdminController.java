@@ -171,9 +171,15 @@ public class AdminController {
 
     @GetMapping("/deleteUserRole/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String deleteUserRole(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String deleteUserRole(@PathVariable Long id, RedirectAttributes redirectAttributes, Principal principal) {
         User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+
+        if (principal.getName().equals(userRepository.findById(id).orElse(new User()).getEmail())){
+            redirectAttributes.addFlashAttribute("errorMsg", "Nie możesz usunąć samego siebie!");
+            return "redirect:/homeAdmin/adminPage";
+
+        }
 
         if (adminRole != null) {
             user.getRoles().remove(adminRole);
@@ -189,13 +195,14 @@ public class AdminController {
 
     @GetMapping("/deleteUser/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String deleteUser(@PathVariable Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
-        if (user == null) {
-            return "redirect:/login";
+    public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes, Principal principal) {
+        if (principal.getName().equals(userRepository.findById(id).orElse(new User()).getEmail())){
+            redirectAttributes.addFlashAttribute("errorMsg", "Nie możesz usunąć samego siebie!");
+            return "redirect:/homeAdmin/adminPage";
+
         }
 
-        userRepository.delete(user);
+        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona.")));
         return "redirect:/homeAdmin/adminPage";
 
     }
