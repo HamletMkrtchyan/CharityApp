@@ -116,8 +116,8 @@ public class AdminController {
     public String adminPageShow(Model model, Principal principal) {
         String email = principal.getName();
         User loggedUser = userRepository.findByEmail(email);
-       List<User> users = userRepository.findAll();
-       Role role = roleRepository.findByName("ROLE_ADMIN");
+        List<User> users = userRepository.findAll();
+        Role role = roleRepository.findByName("ROLE_ADMIN");
 
         users.sort((user1, user2) -> {
             if (user1.getId().equals(loggedUser.getId())) {
@@ -130,16 +130,15 @@ public class AdminController {
         });
 
 
-
-       model.addAttribute("users", users);
-       model.addAttribute("loggedUser", loggedUser );
+        model.addAttribute("users", users);
+        model.addAttribute("loggedUser", loggedUser);
 
         return "adminPage";
     }
 
 
     @GetMapping("/deleteAdmin/{id}")
-    public String deleteAdminForm(@PathVariable Long id){
+    public String deleteAdminForm(@PathVariable Long id) {
         User admin = userRepository.getById(id);
 
         userRepository.delete(admin);
@@ -151,17 +150,17 @@ public class AdminController {
 
     @GetMapping("/updateUserRole/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String updateUserRole(@PathVariable Long id, RedirectAttributes redirectAttributes){
+    public String updateUserRole(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 
 
-        if (adminRole != null){
+        if (adminRole != null) {
             user.getRoles().add(adminRole);
             userRepository.save(user);
 
             redirectAttributes.addFlashAttribute("successMsg", "Użytkownikowi " + user.getEmail() + " nadano uprawnienia admina.");
-        }else{
+        } else {
             redirectAttributes.addFlashAttribute("errorMsg", "Użytkownik " + user.getEmail() + " już ma uprawnienia admina.");
 
         }
@@ -172,11 +171,11 @@ public class AdminController {
 
     @GetMapping("/deleteUserRole/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String deleteUserRole(@PathVariable Long id, RedirectAttributes redirectAttributes){
+    public String deleteUserRole(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 
-        if (adminRole != null){
+        if (adminRole != null) {
             user.getRoles().remove(adminRole);
             userRepository.save(user);
 
@@ -188,8 +187,18 @@ public class AdminController {
     }
 
 
+    @GetMapping("/deleteUser/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteUser(@PathVariable Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
+        if (user == null) {
+            return "redirect:/login";
+        }
 
+        userRepository.delete(user);
+        return "redirect:/homeAdmin/adminPage";
 
+    }
 
 
 }

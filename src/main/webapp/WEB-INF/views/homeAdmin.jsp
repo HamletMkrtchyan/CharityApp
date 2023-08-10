@@ -14,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>Admin</title>
 
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -45,8 +45,7 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
       <a class="nav-link" href="/homeAdmin">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Strona Główna Admina</span></a>
     </li>
 
     <!-- Divider -->
@@ -60,7 +59,6 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="/homeAdmin/institutionDetails" >
-        <i class="fas fa-fw fa-cog"></i>
         <span>Institucje</span>
       </a>
     </li>
@@ -68,8 +66,7 @@
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="/homeAdmin/adminPage">
-        <i class="fas fa-fw fa-wrench"></i>
-        <span>Administratory</span>
+        <span>Użytkownicy</span>
       </a>
     </li>
 
@@ -85,7 +82,6 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
          aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-fw fa-folder"></i>
         <span>Pages</span>
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -105,14 +101,12 @@
     <!-- Nav Item - Charts -->
     <li class="nav-item">
       <a class="nav-link" href="charts.html">
-        <i class="fas fa-fw fa-chart-area"></i>
         <span>Charts</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
       <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-table"></i>
         <span>Tables</span></a>
     </li>
 
@@ -347,12 +341,7 @@
       <!-- Begin Page Content -->
       <div class="container-fluid">
 
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                  class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-        </div>
+
 
         <!-- Content Row -->
         <div class="row">
@@ -713,7 +702,7 @@
       <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="login.html">Logout</a>
+        <a class="btn btn-primary" href="/logout">Logout</a>
       </div>
     </div>
   </div>
