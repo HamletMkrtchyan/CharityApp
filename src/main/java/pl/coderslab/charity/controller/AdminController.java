@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.coderslab.charity.AppSecurity.UserService;
+import pl.coderslab.charity.appSecurity.UserService;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
@@ -82,7 +82,6 @@ public class AdminController {
     @GetMapping("/deleteInstitution/{id}")
     public String deleteInstitutionForm(@PathVariable Long id) {
         Institution institution = institutionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
-        ;
 
         institutionRepository.delete(institution);
 
@@ -138,6 +137,7 @@ public class AdminController {
 
 
     @GetMapping("/deleteAdmin/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteAdminForm(@PathVariable Long id) {
         User admin = userRepository.getById(id);
 

@@ -22,6 +22,10 @@ public class Donation {
     @ManyToOne
     private User user;
 
+    public User getUser() {
+        return user;
+    }
+
     private String street;
 
     private String city;
@@ -111,4 +115,9 @@ public class Donation {
     public Long getId() {
         return id;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

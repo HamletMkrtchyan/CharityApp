@@ -1,4 +1,4 @@
-package pl.coderslab.charity.AppSecurity;
+package pl.coderslab.charity.appSecurity;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

@@ -1,21 +1,19 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.coderslab.charity.AppSecurity.CustomUserDetails;
-import pl.coderslab.charity.AppSecurity.UserService;
-import pl.coderslab.charity.entity.PasswordChange;
+import pl.coderslab.charity.appSecurity.UserService;
+import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
-import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/profile")
@@ -24,11 +22,13 @@ public class UserController {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final DonationRepository donationRepository;
 
-    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService) {
+    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService, DonationRepository donationRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = bCryptPasswordEncoder;
         this.userService = userService;
+        this.donationRepository = donationRepository;
     }
 
     @GetMapping
@@ -94,6 +94,20 @@ public class UserController {
         return "redirect:/profile";
 
     }
+
+
+    @GetMapping("/myDonations")
+    public String myDonationsPage(Principal principal, Model model){
+        User user = userRepository.findByEmail(principal.getName());
+
+        List<Donation> userDonations = donationRepository.findByUser(user);
+
+        model.addAttribute("donationsList", userDonations);
+
+        return "userDonationDetails";
+    }
+
+
 
 
 }
