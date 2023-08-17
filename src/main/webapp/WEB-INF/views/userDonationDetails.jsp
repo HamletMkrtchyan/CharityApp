@@ -46,31 +46,43 @@
     </nav>
 
 
-    <h1>Lista Twoich darów</h1>
+    <h1 class="donation-title">Lista Twoich darów</h1>
+    <c:if test="${not empty deleteMsg}">
+    <div class="alert alert-success">${deleteMsg}</div>
+    </c:if>
 
-    <table border="1">
+    <table class="donation-table">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Ilość</th>
-            <th>Kategorie</th>
-            <th>Instytucja</th>
-            <th>Ulica</th>
-            <th>Miasto</th>
-            <th>Kod pocztowy</th>
-            <th>Data odbioru</th>
-            <th>Godzina odbioru</th>
-            <th>Komentarz</th>
+            <th class="donation-id">Id</th>
+            <th class="donation-status">Status</th>
+            <th class="donation-quantity">Ilość</th>
+            <th class="donation-categories">Kategorie</th>
+            <th class="donation-institution">Instytucja</th>
+            <th class="donation-street">Ulica</th>
+            <th class="donation-city">Miasto</th>
+            <th class="donation-zip">Kod pocztowy</th>
+            <th class="donation-date">Data odbioru</th>
+            <th class="donation-time">Godzina odbioru</th>
+            <th class="donation-comment">Komentarz</th>
+            <th class="donation-actions">Akcje</th>
+
         </tr>
         </thead>
         <tbody>
         <c:forEach var="donation" items="${donationsList}">
-            <tr>
+            <tr class="donation-row">
                 <td>${donation.id}</td>
-                <td>${donation.quantity}</td>
                 <td>
+                    <c:choose>
+                        <c:when test="${not empty donation.pickUpDate}">Odebrane</c:when>
+                        <c:otherwise>Nieodebrane</c:otherwise>
+                    </c:choose>
+                </td>
+                <td>${donation.quantity}</td>
+                <td class="categories-list">
                     <c:forEach var="category" items="${donation.categories}">
-                        ${category.name}<br>
+                        <span class="category-item">${category.name}</span><br>
                     </c:forEach>
                 </td>
                 <td>${donation.institution.name}</td>
@@ -80,10 +92,16 @@
                 <td>${donation.pickUpDate}</td>
                 <td>${donation.pickUpTime}</td>
                 <td>${donation.pickUpComment}</td>
+                <td>
+                    <a href="/profile/editUserDonation/${donation.id}" class="btn btn-edit">Edytuj</a>
+                    <a href="/profile/deleteUserDonation/${donation.id}" class="btn btn-delete" onclick="return confirm('Czy na pewno chcesz usunąć ten wpis?');">Usuń</a>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+
+
 
 
 <%@ include file="footer.jsp" %>

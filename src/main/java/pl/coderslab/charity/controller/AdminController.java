@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.coderslab.charity.appSecurity.UserService;
+import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
@@ -26,15 +27,15 @@ public class AdminController {
     private final UserRepository userRepository;
 
     private final RoleRepository roleRepository;
-    private final UserService userService;
+    private final DonationRepository donationRepository;
 
-    public AdminController(InstitutionRepository institutionRepository, DonationService donationService, UserRepository userRepository, RoleRepository roleRepository, UserService userService) {
+    public AdminController(InstitutionRepository institutionRepository, DonationService donationService, UserRepository userRepository, RoleRepository roleRepository, DonationRepository donationRepository) {
         this.institutionRepository = institutionRepository;
         this.donationService = donationService;
         this.userRepository = userRepository;
 
         this.roleRepository = roleRepository;
-        this.userService = userService;
+        this.donationRepository = donationRepository;
     }
 
     @GetMapping
@@ -205,6 +206,13 @@ public class AdminController {
         userRepository.delete(userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona.")));
         return "redirect:/homeAdmin/adminPage";
 
+    }
+
+    @GetMapping("/viewAllDonations")
+    public String viewAllDonations(Model model){
+        List<Donation> donations = donationRepository.findAll();
+        model.addAttribute("donations", donations);
+        return "adminAllDonation";
     }
 
 

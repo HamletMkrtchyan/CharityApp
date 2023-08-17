@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface DonationRepository extends JpaRepository<Donation, Long> {
     List<Donation> findByUser(User user);
+
+    List<Donation> findByUserOrderByPickUpDateDesc(User user);
+
 }

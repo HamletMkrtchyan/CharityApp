@@ -22,9 +22,6 @@ public class Donation {
     @ManyToOne
     private User user;
 
-    public User getUser() {
-        return user;
-    }
 
     private String street;
 
@@ -119,5 +116,9 @@ public class Donation {
     public void setUser(User user) {
         this.user = user;
     }
+    public User getUser() {
+        return user;
+    }
+
 
 }
