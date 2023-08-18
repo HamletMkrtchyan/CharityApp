@@ -14,6 +14,7 @@ import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.DonationService;
+import pl.coderslab.charity.service.InstitutionService;
 
 import javax.persistence.EntityNotFoundException;
 import java.security.Principal;
@@ -28,14 +29,16 @@ public class AdminController {
 
     private final RoleRepository roleRepository;
     private final DonationRepository donationRepository;
+    private final InstitutionService institutionService;
 
-    public AdminController(InstitutionRepository institutionRepository, DonationService donationService, UserRepository userRepository, RoleRepository roleRepository, DonationRepository donationRepository) {
+    public AdminController(InstitutionRepository institutionRepository, DonationService donationService, UserRepository userRepository, RoleRepository roleRepository, DonationRepository donationRepository, InstitutionService institutionService) {
         this.institutionRepository = institutionRepository;
         this.donationService = donationService;
         this.userRepository = userRepository;
 
         this.roleRepository = roleRepository;
         this.donationRepository = donationRepository;
+        this.institutionService = institutionService;
     }
 
     @GetMapping
@@ -59,7 +62,7 @@ public class AdminController {
         String email = principal.getName();
         User admin = userRepository.findByEmail(email);
 
-        List<Institution> institutions = institutionRepository.findAll();
+        List<Institution> institutions = institutionRepository.findAllByStatus(true);
 
         model.addAttribute("institutions", institutions);
         model.addAttribute("admin", admin);
@@ -74,6 +77,7 @@ public class AdminController {
 
     @PostMapping("/addInstitution")
     public String addInstitutionProcess(Institution institution) {
+        institution.setStatus(true);
         institutionRepository.save(institution);
         return "redirect:/homeAdmin/institutionDetails";
 
@@ -84,7 +88,7 @@ public class AdminController {
     public String deleteInstitutionForm(@PathVariable Long id) {
         Institution institution = institutionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
 
-        institutionRepository.delete(institution);
+        institutionService.deleteInstitution(institution.getId());
 
         return "redirect:/homeAdmin/institutionDetails";
 
@@ -94,7 +98,7 @@ public class AdminController {
     @GetMapping("/editInstitution/{id}")
     public String editInstitutionPage(@PathVariable Long id, Model model) {
         Institution institution = institutionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
-        ;
+
         model.addAttribute("institution", institution);
         return "editInstitution";
     }

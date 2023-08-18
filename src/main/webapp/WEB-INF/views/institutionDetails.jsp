@@ -83,8 +83,8 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
-      <a class="nav-link" href="#" >
-        <span>Pages</span>
+      <a class="nav-link" href="/homeAdmin/viewAllDonations" >
+        <span>Przegląd darów</span>
       </a>
     </li>
 
