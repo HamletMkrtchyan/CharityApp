@@ -121,6 +121,7 @@ public class UserController {
 
     }
 
+
     @GetMapping("/editUserDonation/{id}")
     public String editUserDonation(@PathVariable Long id, Model model) {
         Donation donation = donationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona."));
@@ -131,7 +132,7 @@ public class UserController {
         return "editUserDonation";
     }
 
-    @PostMapping("/editUserDonation")
+    @PostMapping("/updateDonation")
     public String editUserDonationForm(@ModelAttribute Donation donation) {
         Donation existingDonation = donationRepository.findById(donation.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + donation.getId() + " nie została znaleziona."));
