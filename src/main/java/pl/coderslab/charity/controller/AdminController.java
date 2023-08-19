@@ -45,7 +45,7 @@ public class AdminController {
     public String homeAdmin(Model model, Principal principal) {
         String email = principal.getName();
         User admin = userRepository.findByEmail(email);
-        int institutions = institutionRepository.findAll().size();
+        int institutions = institutionRepository.findAllByStatus(true).size();
         int totalBags = donationService.sumOfAllDonatedBags();
         int totalDonations = donationService.totalDonations();
 
@@ -201,13 +201,18 @@ public class AdminController {
     @GetMapping("/deleteUser/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes, Principal principal) {
+        List<Donation> donations = donationRepository.findByUserId(id);
+
         if (principal.getName().equals(userRepository.findById(id).orElse(new User()).getEmail())){
             redirectAttributes.addFlashAttribute("errorMsg", "Nie możesz usunąć samego siebie!");
             return "redirect:/homeAdmin/adminPage";
-
+        }
+        for (Donation donation: donations) {
+            donationRepository.delete(donation);
         }
 
-        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Instytucja o ID " + id + " nie została znaleziona.")));
+
+        userRepository.deleteById(id);
         return "redirect:/homeAdmin/adminPage";
 
     }

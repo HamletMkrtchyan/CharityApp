@@ -16,7 +16,7 @@ public class InstitutionService {
     }
 
     public List<Institution> getAllInstitutions(){
-        return institutionRepository.findAll();
+        return institutionRepository.findAllByStatus(true);
     }
 
     public void deleteInstitution(Long id){
