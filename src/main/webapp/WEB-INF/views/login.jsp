@@ -52,6 +52,11 @@
   </c:if>
 
 
+  <c:if test="${not empty infoSuccessMsg}">
+    <div class="alert alert-danger">${infoSuccessMsg}</div>
+  </c:if>
+
+
 
 
   <form action="/login" method="post">

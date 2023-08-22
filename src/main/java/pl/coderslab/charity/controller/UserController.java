@@ -92,10 +92,10 @@ public class UserController {
         }
 
         user.setPassword(passwordEncoder.encode(repeatNewPassword));
-        redirectAttributes.addFlashAttribute("infoSuccessMsg", "Hasło został zmienione");
+        redirectAttributes.addFlashAttribute("infoSuccessMsg", "Hasło został zmienione, proszę się zalogować sie ponownie");
         userRepository.save(user);
 
-        return "redirect:/profile";
+        return "redirect:/login";
     }
 
 

@@ -27,7 +27,7 @@
                     Witaj, <sec:authentication property="name"/>
                     <ul class="dropdown">
                         <li><a href="/profile">Profil</a></li>
-                        <li><a href="#">Moje zbiórki</a></li>
+                        <li><a href="/profile/myDonations">Moje zbiórki</a></li>
                         <li><a href="/logout">Wyloguj</a></li>
                     </ul>
                 </li>
@@ -73,11 +73,6 @@
 
     <div class="password-change-wrapper">
         <h2 class="password-change-header">Zmiana hasła</h2>
-
-        <c:if test="${not empty infoSuccessMsg}">
-            <div class="alert alert-danger">${infoSuccessMsg}</div>
-        </c:if>
-
         <form action="/profile/changePassword" method="post" class="password-change-form">
             <div class="form-group">
                 <label for="currentPassword">Obecne hasło:</label>
